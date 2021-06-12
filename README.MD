@@ -25,3 +25,21 @@ Adds files for tracking
 __Git Commit__
 
 Commit recent tracked changes
+
+`git commit -m 'commit message'`
+
+__Set up Remote__
+
+Set up a remote peer (like Github)
+
+`git remote add origin https://github.com/account/reponame.git`
+
+__Push to remote__
+
+Push your recent commit to the remote peet (e.g. Github)
+
+`git push -u origin master`
+
+## Markdown
+
+[Jupyter Notebook-oriented Markdown Guide](https://medium.com/analytics-vidhya/the-ultimate-markdown-guide-for-jupyter-notebook-d5e5abf728fd)
