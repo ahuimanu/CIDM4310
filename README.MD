@@ -21,3 +21,7 @@ __Git Add__
 Adds files for tracking
 
 `git add -A`
+
+__Git Commit__
+
+Commit recent tracked changes
