@@ -48,7 +48,7 @@ bind-address            = 0.0.0.0
    `CREATE USER 'username'@'%' IDENTIFIED BY 'password';`
 
 6. Give the remote user priviliges
-   `GRANT ALL ON *.* TO 'username '@'%';`
+   `GRANT ALL ON *.* TO 'username'@'%';`
 
 7. Refresh the Priviliges cache
    `FLUSH PRIVILEGES;`
@@ -56,8 +56,10 @@ bind-address            = 0.0.0.0
 8. Allow MySQL traffic through the firewall
    `sudo ufw allow from your_ip_address to any port 3306`
 
-9. try and verify remote access
+9. try and verify remote access from another linux machine
    `mysql -u user -h database_server_ip -p`
+
+10. OR, from a tool like [mysql workbench](https://www.mysql.com/products/workbench/) or [beekeeper studio](https://www.beekeeperstudio.io/)
 
 
 # My Data
