@@ -16,6 +16,10 @@ We will rely on a 3rd Party Library for Python called [GSpread](https://docs.gsp
 #### The Shared Link Way
 It is possible to just use sheet sharing as well: [Read Data from Google Sheets into Pandas without the Google Sheets API](https://towardsdatascience.com/read-data-from-google-sheets-into-pandas-without-the-google-sheets-api-5c468536550)
 
+#### The Publish Google Sheet Approach
+
+We can also publish the google sheet to be viewable on the web using the [Publish to Web](https://www.yourdatateacher.com/2021/05/12/how-to-access-google-sheets-from-python-using-pandas/) approach.
+
 ### Better: Going the Managed MySQL Route
 We use the dashboard at Digital Ocean to perform all permissions and authorizations tasks
 
