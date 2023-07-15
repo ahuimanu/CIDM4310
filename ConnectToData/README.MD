@@ -5,7 +5,7 @@
 ### Good: Access local CSV files
 This allows you to just stick to what you learned from the Pandas Workshop.
 
-### Good(er): Going the Google Sheets Route
+### Better: Going the Google Sheets Route
 
 #### The API way
 We will rely on a 3rd Party Library for Python called [GSpread](https://docs.gspread.org/en/latest/index.html). You will need some things for setup:
@@ -20,10 +20,10 @@ It is possible to just use sheet sharing as well: [Read Data from Google Sheets 
 
 We can also publish the google sheet to be viewable on the web using the [Publish to Web](https://www.yourdatateacher.com/2021/05/12/how-to-access-google-sheets-from-python-using-pandas/) approach.
 
-### Better: Going the Managed MySQL Route
+### Best Option 1: Going the Managed MySQL Route
 We use the dashboard at Digital Ocean to perform all permissions and authorizations tasks
 
-### Best: MySQL on VPS
+### Best Option 2: MySQL on VPS
 The steps below will allow for external access to your VPS MySQL installation. All steps below assume you've complete BILC1.  
 [Reference Article](https://www.digitalocean.com/community/tutorials/how-to-allow-remote-access-to-mysql):
 
