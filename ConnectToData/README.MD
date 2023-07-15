@@ -23,7 +23,8 @@ We use the dashboard at Digital Ocean to perform all permissions and authorizati
 The steps below will allow for external access to your VPS MySQL installation. All steps below assume you've complete BILC1.  
 [Reference Article](https://www.digitalocean.com/community/tutorials/how-to-allow-remote-access-to-mysql):
 
-1. Modify mysqld.cnf
+1. Modify mysqld.cnf - `sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf`
+Look for `bind-address` and change it like so:
 
 ```
 lc-messages-dir = /usr/share/mysql
@@ -44,16 +45,16 @@ bind-address            = 0.0.0.0
    `mysql -u root -p`
 
 5. Create an external user
-   `CREATE USER 'sammy'@'remote_server_ip' IDENTIFIED BY 'password';` OR `CREATE USER 'sammy'@'remote_server_ip' IDENTIFIED WITH mysql_native_password BY 'password';`
+   `CREATE USER 'username'@'%' IDENTIFIED BY 'password';`
 
 6. Give the remote user priviliges
-   `GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'sammy'@'remote_server_ip' WITH GRANT OPTION;`
+   `GRANT ALL ON *.* TO 'username '@'%';`
 
 7. Refresh the Priviliges cache
    `FLUSH PRIVILEGES;`
 
 8. Allow MySQL traffic through the firewall
-   `sudo ufw allow from remote_IP_address to any port 3306`
+   `sudo ufw allow from your_ip_address to any port 3306`
 
 9. try and verify remote access
    `mysql -u user -h database_server_ip -p`
