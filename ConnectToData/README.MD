@@ -57,3 +57,7 @@ bind-address            = 0.0.0.0
 
 9. try and verify remote access
    `mysql -u user -h database_server_ip -p`
+
+
+# My Data
+I am using [Climate Data Online](https://www.ncei.noaa.gov/cdo-web/) to look at weather in Amarillo over time.  I can then use real-time updates to this data for comparison.
