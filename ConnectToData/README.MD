@@ -65,6 +65,8 @@ bind-address            = 0.0.0.0
 
 10. OR, from a tool like [mysql workbench](https://www.mysql.com/products/workbench/) or [beekeeper studio](https://www.beekeeperstudio.io/)
 
-
 # My Data
 I am using [Climate Data Online](https://www.ncei.noaa.gov/cdo-web/) to look at weather in Amarillo over time.  I can then use real-time updates to this data for comparison.
+
+# Connecting To an API
+The [requests library](https://pypi.org/project/requests/) is your main tool as Pandas already understands how to work with JSON data.
