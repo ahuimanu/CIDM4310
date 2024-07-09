@@ -1,0 +1,6 @@
+name: test-env
+dependencies:
+    - python>=3.8
+    - anaconda
+    - numpy
+    - joblib
