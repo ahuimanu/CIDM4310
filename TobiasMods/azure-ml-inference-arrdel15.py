@@ -295,7 +295,7 @@ for index, row in df.iterrows():
     result = pd.DataFrame(json.loads(result.content))
     # raising an excpetion seems to be the only path for debugging purposes in Power BI
     # raise Exception(result.values[0])
-    row["ArrDel15_Prediction"] = result.values[1]
+    row["ArrDel15_Prediction"] = result.values[0]
 
 # result = inference_request(
 #     df["DayOfWeek"],
