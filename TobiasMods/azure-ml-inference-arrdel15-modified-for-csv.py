@@ -10,11 +10,13 @@ import pandas as pd
 import requests
 import json
 import time
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
 
 API_KEY = ""
-API_URL = (
-    "http://ee983424-4dea-47ec-a14b-e3f847c262f5.westcentralus.azurecontainer.io/score"
-)
+API_URL = (os.getenv("API_URL"))
 
 
 # SECTION 1: API Request Function ----

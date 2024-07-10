@@ -16,3 +16,5 @@ Unchanged training and test files from Tobias
 
 **PBI**
 Modified PBI files
+
+NOTE: The number of parameters for an endpoint are defined when the AutoML job data inputs are set, as a result, each script would need to be adjusted for the model used.
