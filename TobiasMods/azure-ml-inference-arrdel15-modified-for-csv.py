@@ -19,7 +19,8 @@ API_URL = (
 
 # SECTION 1: API Request Function ----
 
-# This function stays because we still need to map dissimilarities between the trained data and the 
+
+# This function stays because we still need to map dissimilarities between the trained data and the
 # data we're sending to the API
 def create_full_model_record(
     DayOfWeek,
@@ -213,14 +214,12 @@ for index, row in df.iterrows():
     result = pd.DataFrame(json.loads(result.content))
     print(f"model result for {index}: {result.values[0]}")
     dfo.loc[index] = result.values[0]
-    # print(dfo.values[index])
-    # row["ArrDel15_Prediction"] = result.values[0]
 
 # SECTION 5: Write output to csv ----
 
 # shows the last row of the dataframe
 # raise Exception(df.values[len(df) - 1])
-dfoutput = pd.concat([df, dfo], axis=1)
+dfoutput = pd.concat([df, dfo], axis="columns")
 
 # write to csv
 dfoutput.to_csv("AA_Hourly_Batches_2021-02-07_08000-859_output.csv", index=False)
