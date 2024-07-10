@@ -145,16 +145,27 @@ def inference_request(
         DistanceGroup,
     )
 
+    # input_data = {
+    #     "DayOfWeek": [DayOfWeek],
+    #     "Origin": [Origin],
+    #     "Dest": [Dest],
+    #     "DepDelay": [DepDelay],
+    #     "DepDelayMinutes": [DepDelayMinutes],
+    #     "DepDel15": [DepDel15],
+    #     "DepartureDelayGroups": [DepartureDelayGroups],
+    #     "DepTimeBlk": [DepTimeBlk],
+    #     "TaxiOut": [TaxiOut],
+    #     "ArrTimeBlk": [ArrTimeBlk],
+    #     "Distance" : [Distance],
+    #     "DistanceGroup": [DistanceGroup],
+    # }
+
     # Bind columns to dataframe
     request_df = pd.DataFrame(input_data)
     df_array = list(request_df.to_dict(orient="records"))
 
     req = {
         "Inputs": {"data": df_array},
-        # "Inputs": {"data": list(request_df.to_dict(orient="records"))},
-        # "Inputs": {"data": request_df.to_json(orient="records")},
-        # "Inputs": {"data": list(request_df.to_dict("records"))},
-        # "Inputs": {"data": request_df.to_dict("records")},
         "GlobalParameters": {"method": "predict"},
     }
 
@@ -171,117 +182,18 @@ def inference_request(
 
 # SECTION 2: Data preprocessing ----
 
-# temporary dataset
+# read from CSV file
+df = pd.read_csv("AA_Hourly_Batches_2021-02-07_08000-859.csv")
 
-# 7	LAX	JFK	-6	0	0	-1	0800-0859	28	1600-1659	2475	10
-# dataset = {
-#     "Year": [0],
-#     "Quarter": [0],
-#     "Month": [0],
-#     "DayofMonth": [0],
-#     "DayOfWeek": [7],
-#     "FlightDate": ["2000-01-01T00:00:00.000Z"],
-#     "Reporting_Airline": ["example_value"],
-#     "DOT_ID_Reporting_Airline": [0],
-#     "IATA_CODE_Reporting_Airline": ["example_value"],
-#     "Tail_Number": ["example_value"],
-#     "Flight_Number_Reporting_Airline": [0],
-#     "OriginAirportID": [0],
-#     "OriginAirportSeqID": [0],
-#     "OriginCityMarketID": [0],
-#     # "Origin": "example_value",
-#     "Origin": ["LAX"],
-#     "OriginCityName": ["example_value"],
-#     "OriginState": ["example_value"],
-#     "OriginStateFips": [0],
-#     "OriginStateName": ["example_value"],
-#     "OriginWac": [0],
-#     "DestAirportID": [0],
-#     "DestAirportSeqID": [0],
-#     "DestCityMarketID": [0],
-#     # "Dest": "example_value",
-#     "Dest": ["JFK"],
-#     "DestCityName": ["example_value"],
-#     "DestState": ["example_value"],
-#     "DestStateFips": [0],
-#     "DestStateName": ["example_value"],
-#     "DestWac": [0],
-#     "CRSDepTime": [0],
-#     "DepTime": [0],
-#     # "DepDelay": "example_value",
-#     "DepDelay": [-6],
-#     # "DepDelayMinutes": "example_value",
-#     "DepDelayMinutes": [0],
-#     # "DepDel15": "example_value",
-#     "DepDel15": [0],
-#     # "DepartureDelayGroups": 0,
-#     "DepartureDelayGroups": [-1],
-#     # "DepTimeBlk": "example_value",
-#     "DepTimeBlk": ["0800-0859"],
-#     # "TaxiOut": "example_value",
-#     "TaxiOut": [28],
-#     "WheelsOff": [0],
-#     "WheelsOn": [0],
-#     "TaxiIn": ["example_value"],
-#     "CRSArrTime": [0],
-#     "ArrTime": [0],
-#     "ArrDelay": ["example_value"],
-#     "ArrDelayMinutes": ["example_value"],
-#     "ArrivalDelayGroups": [0],
-#     #  "ArrTimeBlk": "example_value",
-#     "ArrTimeBlk":  ["1600-1659"],
-#     "Cancelled": [0],
-#     "CancellationCode": ["example_value"],
-#     "Diverted": [0],
-#     "CRSElapsedTime": ["example_value"],
-#     "ActualElapsedTime": ["example_value"],
-#     "AirTime": ["example_value"],
-#     "Flights": 0,
-#     # "Distance": "example_value",
-#     "Distance": [2475],
-#     # "DistanceGroup": 0,
-#     "DistanceGroup": [10],
-#     "CarrierDelay": [0],
-#     "WeatherDelay": [0],
-#     "NASDelay": [0],
-#     "SecurityDelay": [0],
-#     "LateAircraftDelay": [0],
-#     "PREDICTED_BASELINE": ["example_value"],
-#     "DIFF_ELAPSED_ACTUAL": ["example_value"],
-#     "REGRESSION_ELAPSED_TIME": [0],
-# }
+dfo_structure = {"ArrDel15_Prediction": []}
+dfo = pd.DataFrame(dfo_structure)
 
-# 7	LAX	JFK	-6	0	0	-1	0800-0859	28	1600-1659	2475	10
-# comment this out before using with Power BI
-# dataset = {
-#     "DayOfWeek": [7],
-#     "Origin": ["LAX"],
-#     "Dest": ["JFK"],
-#     "DepDelay": [-6],
-#     "DepDelayMinutes": [0],
-#     "DepDel15": [0],
-#     "DepartureDelayGroups": [-1],
-#     "DepTimeBlk": ["0800-0859"],
-#     "TaxiOut": [28],
-#     "ArrTimeBlk": ["1600-1659"],
-#     "Distance": [2475],
-#     "DistanceGroup": [10],
-# }
-
-# comment this out before using with Power BI
-# df = pd.DataFrame(dataset)
-
-
-# Fetch data from Power Query workflow
-
-# uncomment before using with Power BI
-
-df = dataset
+# raise Exception(dfo)
 
 # SECTION 3: Get Predictions ----
 for index, row in df.iterrows():
     # to prevent bombarding the API
-    time.sleep(1)
+    time.sleep(0.1)
     result = inference_request(
         row["DayOfWeek"],
         row["Origin"],
@@ -299,29 +211,16 @@ for index, row in df.iterrows():
 
     # SECTION 4: Data postprocessing ----
     result = pd.DataFrame(json.loads(result.content))
-    raise Exception(result.values[0])
-    row["ArrDel15_Prediction"] = result.values[0]
+    print(f"model result for {index}: {result.values[0]}")
+    dfo.loc[index] = result.values[0]
+    # print(dfo.values[index])
+    # row["ArrDel15_Prediction"] = result.values[0]
 
-# result = inference_request(
-#     df["DayOfWeek"],
-#     df["Origin"],
-#     df["Dest"],
-#     df["DepDelay"],
-#     df["DepDelayMinutes"],
-#     df["DepDel15"],
-#     df["DepartureDelayGroups"],
-#     df["DepTimeBlk"],
-#     df["TaxiOut"],
-#     df["ArrTimeBlk"],
-#     df["Distance"],
-#     df["DistanceGroup"],
-# )
+# SECTION 5: Write output to csv ----
 
-# print(result.content)
+# shows the last row of the dataframe
+# raise Exception(df.values[len(df) - 1])
+dfoutput = pd.concat([df, dfo], axis=1)
 
-# SECTION 4: Data postprocessing ----
-# result = pd.DataFrame(json.loads(result.content))
-# df["ArrDel15_Prediction"] = result
-
-# SECTION 5: Format output for Power BI ----
-output = df
+# write to csv
+dfoutput.to_csv("AA_Hourly_Batches_2021-02-07_08000-859_output.csv", index=False)
