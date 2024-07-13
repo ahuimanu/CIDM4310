@@ -24,14 +24,17 @@ from azure.ai.ml.entities import Data
 from azure.identity import DefaultAzureCredential
 import mltable
 from mltable import DataType
+from decimal import Decimal
+import pandas as pd
 import os
 import pickle
 import time
+
 from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
 
-AZ_COMPUTE_NAME = os.getenv("COMPUTE_NAME")
+AZ_COMPUTE_NAME = os.getenv("AZ_COMPUTE_NAME")
 AZ_EXPERIMENT_NAME = os.getenv("AZ_EXPERIMENT_NAME")
 AZ_RESOURCE_GROUP = os.getenv("AZ_RESOURCE_GROUP")
 AZ_SUBSCRIPTION_ID = os.getenv("AZ_SUBSCRIPTION_ID")
@@ -42,21 +45,77 @@ API_URL = os.getenv("API_URL")
 
 VERSION = time.strftime("%Y.%m.%d.%H%M%S", time.localtime())
 
+TRAIN_CSV_FILE = "./train_data/AA_Flights_2021_01.csv"
+TRAIN_CSV_FILE_MOD = "./train_data/AA_Flights_2021_01_mod.csv"
+
+def transform_decimal_to_period_decimal(csv_file):
+    """Transform the decimal delimiter to a period decimal."""
+    dataset_for_training = pd.read_csv(
+        csv_file, 
+        delimiter=";", 
+        decimal=",",
+        header='infer',
+    )
+    dataset_for_training.to_csv(csv_file, sep=";", decimal=".", index=False)
+
+# we first will rely on pandas for some data cleaning as there is no built-in data cleaning in the SDK
+# with respect to transforming the comma decimal to a period decimal. Pandas makes quick work of this
+# doing this everytime is not needed as once we've run this, the data will be transformed
+# SO, this could be commented out for subsequent runs
+transform_decimal_to_period_decimal(TRAIN_CSV_FILE)
+
+
 # create client
 ml_client = MLClient(
     DefaultAzureCredential(), AZ_SUBSCRIPTION_ID, AZ_RESOURCE_GROUP, AZ_WORKSPACE_NAME
 )
 
 # Get the training data
-paths = [{"file": "./train_data/AA_Flights_2021_01.csv"}]
+paths = [{"file": TRAIN_CSV_FILE_MOD}]
 
-train_table = mltable.from_delimited_files(paths, header="from_first_file", delimiter=";")
+train_table = mltable.from_delimited_files(paths, header="from_first_file", delimiter=";", infer_column_types=True)
 
+# keep only the columns of interest
+train_table = train_table.keep_columns(
+    [
+        "DayofWeek",
+        "Origin",
+        "Dest",
+        "DepDelay", 
+        "DepDelayMinutes",
+        "DepDel15",
+        "DepartureDelayGroups",
+        "DepTimeBlk",
+        "TaxiOut",
+        "ArrDel15",
+        "ArrTimeBlk",
+        "Distance",
+        "DistanceGroup",
+    ]
+)
+
+# raise Exception(f"Stop here to check the Train table: {train_table.show(1)}")
+
+# https://learn.microsoft.com/en-us/azure/machine-learning/how-to-mltable?view=azureml-api-2&tabs=cli#delimited-files
+# set the column types explicitly according to what Tobias has done
 column_types = {
     "DepDeplay": DataType.to_float(),
+    "Origin": DataType.to_string(),
+    "Dest": DataType.to_string(),
+    "DepDelay": DataType.to_float(),
+    "DepDelayMinutes": DataType.to_float(),
+    "DepDel15": DataType.to_string(),
+    "DepartureDelayGroups": DataType.to_string(),
+    "DepTimeBlk": DataType.to_string(),
+    "TaxiOut": DataType.to_float(),
+    "ArrDel15": DataType.to_string(),
+    "ArrTimeBlk": DataType.to_string(),
+    "Distance": DataType.to_float(),
+    "DistanceGroup": DataType.to_string(),
 }
 
-train_table.save("./train_data")
+# convert the column types - Tobias uses a different decimal delimiter for instance
+train_table = train_table.convert_column_types(column_types)
 
 # raise Exception(f"Stop here to check the Train table: {train_table}")
 train_table.save("./train_data")
@@ -84,7 +143,7 @@ aa_ontime_classification_job = automl.classification(
     compute=AZ_COMPUTE_NAME,
     experiment_name=AZ_EXPERIMENT_NAME,
     training_data=aa_ontime_training_data_input,
-    target_column_name="y",
+    target_column_name="ArrDel15",
     primary_metric="precision_score_weighted",
     n_cross_validations=5,
     enable_model_explainability=True,

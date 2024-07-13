@@ -1,5 +1,5 @@
 paths:
-- file: AA_Flights_2021_01.csv
+- file: AA_Flights_2021_01_mod.csv
 transformations:
 - read_delimited:
     delimiter: ;
@@ -11,4 +11,45 @@ transformations:
     partition_size: 20971520
     path_column: Path
     support_multi_line: false
+- keep_columns:
+  - DayofWeek
+  - Origin
+  - Dest
+  - DepDelay
+  - DepDelayMinutes
+  - DepDel15
+  - DepartureDelayGroups
+  - DepTimeBlk
+  - TaxiOut
+  - ArrDel15
+  - ArrTimeBlk
+  - Distance
+  - DistanceGroup
+- convert_column_types:
+  - column_type: float
+    columns: DepDeplay
+  - column_type: string
+    columns: Origin
+  - column_type: string
+    columns: Dest
+  - column_type: float
+    columns: DepDelay
+  - column_type: float
+    columns: DepDelayMinutes
+  - column_type: string
+    columns: DepDel15
+  - column_type: string
+    columns: DepartureDelayGroups
+  - column_type: string
+    columns: DepTimeBlk
+  - column_type: float
+    columns: TaxiOut
+  - column_type: string
+    columns: ArrDel15
+  - column_type: string
+    columns: ArrTimeBlk
+  - column_type: float
+    columns: Distance
+  - column_type: string
+    columns: DistanceGroup
 type: mltable
