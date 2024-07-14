@@ -58,7 +58,7 @@ print(f"Table iem_stations created: {dude}")
 conn.commit()
 
 # read the csv file into a pandas dataframe to write to the database
-station_obs = pd.read_csv("DAL.csv")
+station_obs = pd.read_csv("AMA.csv")
 
 top_count = 0
 for index, row in station_obs.iterrows():
@@ -73,9 +73,11 @@ print(f"{top_count + 1} rows inserted into iem_stations: {result}")
 
 # get all flights and convert metar string to metar object
 
+query = "SELECT metar FROM iem_metar WHERE station = 'AMA'"
+
 
 def view_via_sql(cursor):
-    cursor.execute("SELECT metar FROM iem_metar")
+    cursor.execute(query)
     metar_rows = cursor.fetchall()
 
     iterator = iter(metar_rows)
@@ -93,7 +95,7 @@ def view_via_sql(cursor):
 
 # we can also read straight into a dataframe
 def view_via_dataframe(conn):
-    metar_rows = pd.read_sql_query("SELECT metar FROM iem_metar", conn)
+    metar_rows = pd.read_sql_query(query, conn)
 
     for index, row in metar_rows.iterrows():
         print(row["metar"])
