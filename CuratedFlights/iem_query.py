@@ -16,6 +16,7 @@ from datetime import date, datetime, timedelta
 import argparse
 import requests
 
+
 def configargs():
     parser = argparse.ArgumentParser()
 
@@ -26,6 +27,7 @@ def configargs():
     args = parser.parse_args()
     return args
 
+
 def validateargs(args):
     if args.station is None:
         print("Please provide a three-letter IEM ASOS station to download")
@@ -33,11 +35,11 @@ def validateargs(args):
 
     if args.start is None:
         print("Please provide a Start date YYYYMMDD")
-        exit(1)        
+        exit(1)
 
     if args.end is None:
         print("Please provide an End date YYYYMMDD")
-        exit(1)          
+        exit(1)
 
 
 def fetch(station_id, start_date, end_date):
@@ -72,7 +74,6 @@ def main():
 
     # raise Exception(f"station_id: {station_id}, start_date: {start_date}, end_date: {end_date}")
 
-
     # Step 1: Fetch global METAR geojson metadata
     # https://mesonet.agron.iastate.edu/sites/networks.php
     req = requests.get(
@@ -88,6 +89,7 @@ def main():
             if props["archive_end"] is None:
                 print(f"Station {station_id} has no archive_end")
                 fetch(station_id, start_date, end_date)
+
 
 if __name__ == "__main__":
     main()

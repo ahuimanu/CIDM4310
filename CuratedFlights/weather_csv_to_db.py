@@ -4,11 +4,10 @@ import pandas as pd
 from metar import Metar
 
 
-
-conn = sqlite3.connect('bts.db')
+conn = sqlite3.connect("bts.db")
 
 # create table for Iowa Environmental Mesonet (IEM) data
-iem_statement = '''
+iem_statement = """
 CREATE TABLE IF NOT EXISTS iem_weather (
     station TEXT,
     valid TEXT,
@@ -40,7 +39,7 @@ CREATE TABLE IF NOT EXISTS iem_weather (
     feel REAL,
     metar TEXT
 )
-'''
+"""
 
 # create table for raw metar from IEM stations
 iem_metar_statement = """
@@ -59,38 +58,54 @@ print(f"Table iem_stations created: {dude}")
 conn.commit()
 
 # read the csv file into a pandas dataframe to write to the database
-station_obs = pd.read_csv('DAL.csv')
+station_obs = pd.read_csv("DAL.csv")
 
 top_count = 0
 for index, row in station_obs.iterrows():
     top_count = index
     cursor.execute(
-        'INSERT INTO iem_metar (station, valid_time, metar) VALUES (?, ?, ?)', 
-        (row['station'], row['valid'], row['metar'])
+        "INSERT INTO iem_metar (station, valid_time, metar) VALUES (?, ?, ?)",
+        (row["station"], row["valid"], row["metar"]),
     )
 
 result = conn.commit()
 print(f"{top_count + 1} rows inserted into iem_stations: {result}")
 
-
-# raise Exception(f"Stop here to check the station_obs: {station_obs}")
-
 # get all flights and convert metar string to metar object
 
-cursor.execute('SELECT metar FROM iem_metar')
-metar_rows = cursor.fetchall()
 
-iterator = iter(metar_rows)
-for raw in iterator:
-    print(raw[0])
+def view_via_sql(cursor):
+    cursor.execute("SELECT metar FROM iem_metar")
+    metar_rows = cursor.fetchall()
+
+    iterator = iter(metar_rows)
+    for raw in iterator:
+        print(raw[0])
+        try:
+            report = Metar.Metar(raw[0])
+            print(f"{report.wind_dir} at {report.wind_speed} kts")
+        except Exception as e:
+            print(f"Error: {e}")
+
     # report = Metar.Metar(raw[0])
     # print(report.time)
 
 
+# we can also read straight into a dataframe
+def view_via_dataframe(conn):
+    metar_rows = pd.read_sql_query("SELECT metar FROM iem_metar", conn)
 
-# raw = next(iterator)[0]
-# report = Metar.Metar(raw)
-# print(report.time)
+    for index, row in metar_rows.iterrows():
+        print(row["metar"])
+        try:
+            report = Metar.Metar(row["metar"])
+            print(f"{report.wind_dir} at {report.wind_speed} kts")
+        except Exception as e:
+            print(f"Error: {e}")
 
 
+# Call the method
+view_via_dataframe(conn)
+view_via_sql(cursor)
 
+conn.close()
