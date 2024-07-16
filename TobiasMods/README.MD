@@ -5,13 +5,13 @@ Various modifications to Tobias' files as seen in guidance videos.
 ## Chapter 7 - Case 1
 
 **Python Scripts**
-- `azure-ml-inference-arrdel15.py` - modified to work effectively as per video demonstration
+- `azure-ml-inference-arrdel15.py` - modified to work effectively as per video demonstration (first three videos)
 - `azure-ml-inference-arrdel15-updated.py` - modified to work effectively as per video demonstration with SDK V2
 - `azure-ml-inference-arrdel15-modified-for-csv.py` - skips any processing from within PowerBI (my preference)
 - `azure-ml-inference-arrdel15-modified-for-csv-updated` - Uses SDK V2 techniques (FAVOR THIS ONE!!!)
 
 **JSON Files**
-Preparations for testing the endpoint (see the swagger file for your endpoint). These are all just guides and examples, none of the scripts reads these.
+Preparations for testing the endpoint (see the swagger file for your endpoint). These are all just guides and examples, none of the scripts reads these. They are FYI!
 
 **Swagger**
 These JSON files describe the service endpoints and are useful for developing the endpoint script properly.
