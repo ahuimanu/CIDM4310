@@ -11,7 +11,7 @@ Various modifications to Tobias' files as seen in guidance videos.
 - `azure-ml-inference-arrdel15-modified-for-csv-updated` - Uses SDK V2 techniques (FAVOR THIS ONE!!!)
 
 **JSON Files**
-Preparations for testing the endpoint (see the swagger file for your endpoint). These are all just guides and examples, none of the scripts reads these. They are FYI!
+Preparations for testing the endpoint (see the swagger file for your endpoint). These are all just guides and examples, none of the scripts reads these. They are FYI!  A [Swagger file](https://swagger.io/) is a JSON file which provides standardized messaging formats for the consumption of APIs.
 
 **Swagger**
 These JSON files describe the service endpoints and are useful for developing the endpoint script properly.
