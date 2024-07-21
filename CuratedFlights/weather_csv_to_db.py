@@ -3,7 +3,7 @@ import csv
 import os
 import pandas as pd
 from metar import Metar
-import argparse
+
 
 OUTPUT_FOLDER = f"IEM_Outputs/"
 
@@ -132,14 +132,15 @@ def main():
                     # False argument prevents strict parsing
                     flight_rules = set_flight_rules(row["visibility"], row["ceiling"])
 
+                    # headings for pandas: station,valid,vsby,skyl1,metar
                     cursor.execute(
                         "INSERT INTO iem_metar (station, valid_time, visibility, ceiling, metar, flight_rules) "
                         "VALUES (?, ?, ?, ?, ?, ?)",
                         (
                             row["station"],
                             row["valid"],
-                            row["visibility"],
-                            row["ceiling"],
+                            row["vsby"],
+                            row["skyl1"],
                             row["metar"],
                             flight_rules,
                         ),
