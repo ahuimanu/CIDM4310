@@ -14,3 +14,9 @@ This is what is here:
     - `bts.db` - this is too large to post, but this is the database I am working with in the example(s) above
 - Links
     - Links to sources of the data
+
+# STEPS TAKEN
+
+1. Downloaded ontime data for June, July and August 2023 and loaded these records into a SQLite database (a dump of this data can be made vailable, but the number of records is staggering)
+2. Filtered for Austin as a destination to obtain 74 unique origins
+3. Obtained historical Weather data (from IEM) for these stations
