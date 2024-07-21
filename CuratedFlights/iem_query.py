@@ -11,7 +11,6 @@ Author: daryl herzmann akrherz@iastate.edu
 
 our query parameters are as follows:
 station,valid,vsby,skyl1,metar
-
 """
 
 import os
