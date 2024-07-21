@@ -262,7 +262,7 @@ def main():
         # "actual_on": "2021-12-31T19:59:59Z",
         # "scheduled_in": "2021-12-31T19:59:59Z",
         # "estimated_in": "2021-12-31T19:59:59Z",
-        # "actual_in": "2021-12-31T19:59:59Z"                
+        # "actual_in": "2021-12-31T19:59:59Z"
 
         record = [
             flight["ident"],
@@ -334,7 +334,7 @@ def main():
         df.loc[len(df)] = record
 
     # print dataframe
-    print(df.head(5))   
+    print(df.head(5))
 
     # save to csv
     df.to_csv(f"{station_id}_scheduled_arrivals.csv", index=False)
