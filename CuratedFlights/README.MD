@@ -6,12 +6,18 @@ This is what is here:
 
 - Python scripts:
     - `iem_query.py` - used to grab historical weather data
-    - `weather_csv_to_db.py` - takes historical weather data and saves it to a sqlite database
     - `flightaware.py` - uses the (NOT FREE) Flightaware API to grab future flights for an airport.
+    - `make_city_tz_table.py` - create a city/timezone lookup table to convert local flight times to UTC
+    - `review_weather_from_db.py` - just a demo to show how to directly query db or use pandas
+    - `test_sky_conditions.py` - testing the output of python-metar - ended up just using IEM data directly
+    - `weather_csv_to_db.py` - takes historical weather data and saves it to a sqlite database
 - Data:
     - DL_SelectFields (june to august 2023) - BTS data from these months
     - L_ CSV files - lookup tables for the BTS data
     - `bts.db` - this is too large to post, but this is the database I am working with in the example(s) above
+    - IEM_Outputs - A seperate output file for IEM Metar/Weather data for Flight Category determination
+    - `bts_results.csv` - this is the training dataset
+    - `XXXX_scheduled_arrivals.csv` - flightaware scheduled arrivals for a given airport. Not ready to be directly inferenced, but would be the source.
 - Links
     - Links to sources of the data
 
@@ -23,4 +29,4 @@ This is what is here:
 4. Classified flight categories with Python script
 5. Developed new training set based on merge between the above
 6. Train AutoML Regression
-7. Use inferencing dataset from Flightaware for July 21 to 23 2024
+7. Use inferencing dataset from Flightaware for AUS (two days into the future)
