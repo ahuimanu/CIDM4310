@@ -18,6 +18,8 @@ This is what is here:
     - IEM_Outputs - A seperate output file for IEM Metar/Weather data for Flight Category determination
     - `bts_results.csv` - this is the training dataset
     - `XXXX_scheduled_arrivals.csv` - flightaware scheduled arrivals for a given airport. Not ready to be directly inferenced, but would be the source.
+    - `KAUS_inferencing_inputs` -  CSV to feed to the endpoint
+    - `KAUS_inferencing_outputs` -  CSV for endpoint results (**USE THIS FILE!**)
 - Links
     - Links to sources of the data
 
