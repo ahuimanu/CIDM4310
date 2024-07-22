@@ -1,0 +1,41 @@
+{
+    "input_data": {
+      "columns": [
+        "OP_CARRIER",
+        "DEP_TIME",
+        "DEP_DELAY",
+        "DEP_DELAY_GROUP",
+        "ORIGIN",
+        "DEST",
+        "DISTANCE",
+        "WEATHER_DELAY",
+        "NAS_DELAY",
+        "SECURITY_DELAY",
+        "LATE_AIRCRAFT_DELAY",
+        "FLIGHT_RULES"
+      ],
+      "index": [0],
+      "data": [["AA","2349",840,"","ORD","AUS",1017,0,0,0,0,"VFR"]]
+    }
+}
+
+{
+    "input_data": {
+        "columns": [
+            "OP_CARRIER", 
+            "DEP_TIME", 
+            "DEP_DELAY", 
+            "DEP_DELAY_GROUP", 
+            "ORIGIN", 
+            "DEST", 
+            "DISTANCE", 
+            "WEATHER_DELAY", 
+            "NAS_DELAY", 
+            "SECURITY_DELAY", 
+            "LATE_AIRCRAFT_DELAY", 
+            "FLIGHT_RULES"
+        ], 
+        "index": [0], 
+        "data": [["AA", "2024-07-21T23:49:00Z", 840.0, "56.0", "ORD", "AUS", 1017, 0, 0, 0, 0, "MVFR"]]
+    }
+}

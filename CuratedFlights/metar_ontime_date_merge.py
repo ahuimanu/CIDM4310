@@ -25,7 +25,7 @@ def get_time_from_parts(dep_date, dep_time):
     str_dep_time = str_dep_time.replace(".0", "")
     for i in range(4 - len(str_dep_time)):
         str_dep_time = "0" + str_dep_time
-    
+
     # if(len(str_dep_time) < 4):
     #     raise ValueError("Invalid time format")
     combined_dep_time = datetime.strptime(str_dep_time, "%H%M").time()
