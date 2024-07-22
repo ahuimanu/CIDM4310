@@ -19,9 +19,15 @@ def prepare_db():
 def get_time_from_parts(dep_date, dep_time):
     dt = datetime.strptime(dep_date, "%m/%d/%Y %I:%M:%S %p")
     str_dep_time = str(dep_time)
+    # python time conversions do NOT like 2400
+    if str_dep_time == "2400.0":
+        str_dep_time = "0000.0"
     str_dep_time = str_dep_time.replace(".0", "")
     for i in range(4 - len(str_dep_time)):
         str_dep_time = "0" + str_dep_time
+    
+    # if(len(str_dep_time) < 4):
+    #     raise ValueError("Invalid time format")
     combined_dep_time = datetime.strptime(str_dep_time, "%H%M").time()
     new_time = dt.combine(dt, combined_dep_time)
     return new_time
@@ -110,6 +116,8 @@ def get_depature_time_information(conn, station_id):
         f"WHERE T_ONTIME_REPORTING.DEST = '{station_id}' AND "
         f"T_ONTIME_REPORTING.CANCELLED = '0' AND "
         f"T_ONTIME_REPORTING.DIVERTED = '0'"
+        # f"T_ONTIME_REPORTING.MONTH = '7' AND "
+        # f"T_ONTIME_REPORTING.DAY_OF_MONTH = '8'"
     )
     bts_result_set = pd.read_sql_query(flight_times_query, conn)
 
