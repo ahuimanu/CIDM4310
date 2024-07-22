@@ -81,35 +81,50 @@ def prepare_db():
     return conn, cursor
 
 
-def set_flight_rules(ceiling, visibility):
+def set_flight_rules(ceiling, visibility) -> str:
     """Set flight rules based on METAR object."""
+    ceil = 999999.0
+    vis = 10.0
+    flight_rules = "UNKNOWN"
+
+    if ceiling == "M":
+        ceil = 999999.0
+    elif visibility == "M":
+        vis = 10.0
+    else:
+        ceil = float(ceiling)
+        vis = float(visibility)
 
     # https://en.wikipedia.org/wiki/Flight_categories
     # based on visibility and ceiling
     # uses python-metar: https://github.com/python-metar/python-metar/tree/main
 
     # VFR: Visual Flight Rules - null values from IEM are M
-    if visibility >= 5 and ceiling == "M":
-        return "VFR"
     # Also VFR: Visual Flight Rules
-    elif visibility >= 5 and ceiling >= 3000:
-        return "VFR"
+    if vis >= 5 and ceil >= 3000:
+        print(f"VFR: v:{vis} c:{ceil}")
+        flight_rules = "VFR"
     # MVFR: Marginal Visual Flight Rules
-    elif visibility >= 3 and ceiling >= 1000:
-        return "MVFR"
+    elif vis >= 3 and ceil >= 1000:
+        print(f"MVFR: v:{vis} c:{ceil}")
+        flight_rules = "MVFR"
     # IFR: Instrument Flight Rules
-    elif visibility >= 1 and ceiling >= 500:
-        return "IFR"
+    elif vis >= 1 and ceil >= 500:
+        print(f"IFR: v:{vis} c:{ceil}")
+        flight_rules = "IFR"
     # LIFR: Low Instrument Flight Rules
-    elif visibility < 1 or ceiling < 500:
-        return "LIFR"
+    elif vis < 1 or ceil < 500:
+        print(f"LIFR: v:{vis} c:{ceil}")
+        flight_rules = "LIFR"
     else:
-        return "UNKNOWN"
+        flight_rules = "UNKNOWN"
+
+    return flight_rules
 
 
 def main():
     """Main loop."""
-    cursor, conn = prepare_db()
+    conn, cursor = prepare_db()
 
     """Download data we are interested in!"""
     infile = "stations_input.csv"
@@ -130,7 +145,7 @@ def main():
                     # determine flight rules from raw metar
 
                     # False argument prevents strict parsing
-                    flight_rules = set_flight_rules(row["visibility"], row["ceiling"])
+                    flight_rules = set_flight_rules(row["skyl1"], row["vsby"])
 
                     # headings for pandas: station,valid,vsby,skyl1,metar
                     cursor.execute(
@@ -147,7 +162,9 @@ def main():
                     )
 
                     result = conn.commit()
-                    print(f"{top_count + 1} rows inserted into iem_stations: {result}")
+                    print(
+                        f"{top_count + 1} rows inserted into iem_stations for {row['station']}"
+                    )
 
     conn.close()
 

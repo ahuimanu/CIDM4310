@@ -18,5 +18,9 @@ This is what is here:
 # STEPS TAKEN
 
 1. Downloaded ontime data for June, July and August 2023 and loaded these records into a SQLite database (a dump of this data can be made vailable, but the number of records is staggering)
-2. Filtered for Austin as a destination to obtain 74 unique origins
+2. Filtered for Austin as a destination to obtain 74 unique origins (remove Hawaii)
 3. Obtained historical Weather data (from IEM) for these stations
+4. Classified flight categories with Python script
+5. Developed new training set based on merge between the above
+6. Train AutoML Regression
+7. Use inferencing dataset from Flightaware for July 21 to 23 2024
