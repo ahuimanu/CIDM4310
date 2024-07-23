@@ -36,8 +36,14 @@ This is what is here:
 # OUTPUTS from Models
 
 ## Model: R2 predicting CARRIER_DELAY
-r2_score is mean squared error normalized by an estimate of variance of data. It's the proportion of variation that can be captured by the model.
+r2_score is mean squared error normalized by an estimate of variance of data. It's the proportion of variation that can be captured by the model. What's an r2 value? "the proportion of the variation in the dependent variable that is predictable from the independent variable(s)."
+
+[Making sense of R2 scores](https://towardsdatascience.com/interpreting-r%C2%B2-a-narrative-guide-for-the-perplexed-086a9a69c1ec)
 
 ### Model Performance
+With an R2 (squared) of 0.996, the model tends to explain a reasonable amount of the variance from the sample. 
 ![Model Image](./images/R2_Aus_Flights_Model_Performance.png)
 
+### Distribution of Observations in the dataset
+
+![Distribution](./images/R2_obs_by_carrier.png)
