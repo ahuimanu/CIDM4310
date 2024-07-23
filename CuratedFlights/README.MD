@@ -32,3 +32,12 @@ This is what is here:
 5. Developed new training set based on merge between the above
 6. Train AutoML Regression
 7. Use inferencing dataset from Flightaware for AUS (two days into the future)
+
+# OUTPUTS from Models
+
+## Model: R2 predicting CARRIER_DELAY
+r2_score is mean squared error normalized by an estimate of variance of data. It's the proportion of variation that can be captured by the model.
+
+### Model Performance
+![Model Image](./images/R2_Aus_Flights_Model_Performance.png)
+
