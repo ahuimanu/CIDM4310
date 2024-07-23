@@ -34,6 +34,7 @@ This is what is here:
 7. Use inferencing dataset from Flightaware for AUS (two days into the future)
 
 # OUTPUTS from Models
+Model outputs come from selection the option to have a model explained.  Whereas one model health indicator is given, most of the rest of the outputs are visualizations of model prediction performance.
 
 ## Model: R2 predicting CARRIER_DELAY
 r2_score is mean squared error normalized by an estimate of variance of data. It's the proportion of variation that can be captured by the model. What's an r2 value? "the proportion of the variation in the dependent variable that is predictable from the independent variable(s)."
@@ -48,5 +49,17 @@ With an R2 (squared) of 0.996, the model tends to explain a reasonable amount of
 ![Distribution](./images/R2_obs_by_carrier.png)
 
 ### Predicted Carrier Delay by Carrier
-While SouthWest and American show strongly, this is somewhat a bias favoring their frequency in service to Austin
+While SouthWest and American show strongly, this is somewhat a bias favoring their frequency in service to Austin.
 ![Carrier delay by carrier](./images/R2_obs_carrier_carrier_delay.png)
+
+### Predicted Carrier Delay by Flight Rules
+Most of the value add via sweat equity was from my gathering of origin weather data and developing flight cateogirization of that weather.  This visualization is telling in that it indicates that most carriers have good weather at the origin, making weather an unlikely primary source of delays for Austin.
+![Predicted carrier delay by flight rules](./images/R2_carrier_delay_by_flight_rules.png)
+
+### Feature Importance by Flight Rules
+This analysis is perhaps the most useful as it suggests that departure delays factor most strongly and that bad weather makes things worse.  These are intuitive, but it is nice for observations to validate intuition.  This also says that "mayhem" within the airline's internal operations is perhaps more causal than weather.  For instance, the model is sympathetic to the airline when the weather is bad (seen at the bottom of the visualization), but also says that the airline does not have its act together when the weather is good (VFR and MVFR).
+![Feature importance of Departure Delay by Flight Rules](./images/feature_importance_by_flight_rules.png)
+
+### Feature Importance Carrier by Flight Rules
+With this chart, we can see that all are impacted by each flight rule type at the origin airport, but some more than others.  Hawaiian is invalid as I didn't pull weather for Hawaii.
+![Festure importance of carrier and flight rules](./images/r2_flight_rules_by_carrier.png)
