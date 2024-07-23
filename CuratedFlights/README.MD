@@ -45,5 +45,8 @@ With an R2 (squared) of 0.996, the model tends to explain a reasonable amount of
 ![Model Image](./images/R2_Aus_Flights_Model_Performance.png)
 
 ### Distribution of Observations in the dataset
-
 ![Distribution](./images/R2_obs_by_carrier.png)
+
+### Predicted Carrier Delay by Carrier
+While SouthWest and American show strongly, this is somewhat a bias favoring their frequency in service to Austin
+![Carrier delay by carrier](./images/R2_obs_carrier_carrier_delay.png)
