@@ -1,111 +1,63 @@
-__pycache__
-*.py[cod]
-*$py.class
+# filepath: .gitignore
+# Python bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
 
-# Distribution / packaging 
-.Python build/ 
-develop-eggs/ 
-dist/ 
-downloads/ 
-eggs/ 
-.eggs/ 
-lib/ 
-lib64/ 
-parts/ 
-sdist/ 
-var/ 
-wheels/ 
-*.egg-info/ 
-.installed.cfg 
-*.egg 
-*.manifest 
-*.spec 
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+.env
 
-# Log files
-pip-log.txt
-pip-delete-this-directory.txt
-*.log
+# Package builds
+build/
+dist/
+*.egg-info/
+*.egg
 
-# Unit test / coverage reports 
-htmlcov/ 
-.tox/ 
-.coverage 
-.coverage.* 
-.cache 
-.pytest_cache/ 
-nosetests.xml 
-coverage.xml 
-*.cover 
-.hypothesis/ 
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Translations
-*.mo
-*.pot
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# PyBuilder
-target/
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
 
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pyflow
-__pypackages__/
-
-# Environment
+# Environment variables
 .env
-.venv
-env/
-venv/
-ENV/
-*_env/
+.env.local
+.env.*.local
 
-# If you are using PyCharm # 
-.idea/**/workspace.xml 
-.idea/**/tasks.xml 
-.idea/dictionaries 
-.idea/**/dataSources/ 
-.idea/**/dataSources.ids 
-.idea/**/dataSources.xml 
-.idea/**/dataSources.local.xml 
-.idea/**/sqlDataSources.xml 
-.idea/**/dynamic.xml 
-.idea/**/uiDesigner.xml 
-.idea/**/gradle.xml 
-.idea/**/libraries 
-*.iws /out/ 
+# Logs
+*.log
+logs/
 
-# Sublime Text
-*.tmlanguage.cache 
-*.tmPreferences.cache 
-*.stTheme.cache 
-*.sublime-workspace 
-*.sublime-project 
-
-# sftp configuration file 
-sftp-config.json
-
-# Package control specific files Package 
-Control.last-run 
-Control.ca-list 
-Control.ca-bundle 
-Control.system-ca-bundle 
-GitHub.sublime-settings 
-
-# Visual Studio Code # 
-.vscode/* 
-!.vscode/settings.json 
-!.vscode/tasks.json 
-!.vscode/launch.json 
-!.vscode/extensions.json 
-.history
-
-# SQLITE #
-*.sqlite3
+# Database
 *.db
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
