@@ -1,19 +1,22 @@
 
-ARIMA WALKTHROUGH WITH STATSMODELS
+# ARIMA WALKTHROUGH WITH STATSMODELS
+
 Context: AMA–SAT quarterly passengers from aviation_core / AirlineOps
 
 This script shows:
+
 1. Loading and preparing a time series
-2. Exploring and checking stationarity
-3. Differencing and using ACF/PACF for order hints
-4. Fitting a (S)ARIMA model with statsmodels
-5. Running diagnostics
-6. Forecasting and evaluating forecast accuracy
+1. Exploring and checking stationarity
+1. Differencing and using ACF/PACF for order hints
+1. Fitting a (S)ARIMA model with statsmodels
+1. Running diagnostics
+1. Forecasting and evaluating forecast accuracy
 
 You can adapt this directly to any route or metric.
 
+## 0. Imports and basic setup
 
-# 0. Imports and basic setup
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -320,3 +323,4 @@ Next step in the broader AirlineOps stack:
   - Compare them to XGBoost or other demand models.
   - Feed them into schedule and fleet planning.
 """
+```
